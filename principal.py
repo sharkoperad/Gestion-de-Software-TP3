@@ -1,7 +1,7 @@
 from registro import *
 import math
 
-##Actualizado 4/9 20:00
+##Actualizado 4/9 20:39
 def mostrar_menu():
     menu = """ 
      ============================================================================= 
@@ -35,7 +35,7 @@ def verificar(vec):
 
 
 def convert_lan(num):
-    languages = ("Python", "Java", "C++", "Javascript", "Shell", "HTML", "Ruby", "Swift", "C#", "VB", "Go")
+    languages = ("0", "Python", "Java", "C++", "Javascript", "Shell", "HTML", "Ruby", "Swift", "C#", "VB", "Go")
     return languages[num]
 
 
@@ -78,7 +78,6 @@ def principal():
         elif op == 4:
             print('\t\t\t\t\t\t\t\tLa Opcion que eligio es la 4.')
             i4 = opcion4(projectos)
-            print(i4)
 
         elif op == 5:
             print('\t OPCION 5 RESUMEN POR AÑO: ')
@@ -120,7 +119,7 @@ def opcion4(vec):
         if sel == vec[j].lenguaje:
             can.append(vec[j].cantidad)
             a = sum(can)
-            sp = print("\t\t\t\t\t\tLa cantidad de lineas de código de " + str(convert_lan(sel)) + " es de: ", a)
+    sp = print("\t\t\t\t\t\tLa cantidad de lineas de código de " + str(convert_lan(sel)) + " es de: ", a)
 
 
 # 5) Resumen por año: Calcular la cantidad de proyectos por año de actualización,
@@ -137,7 +136,7 @@ def opcion5(vec):
                 acumulador[a] += 1
     for q in range(23):
         if acumulador[q] != 0:
-            print('Año',fech[q], 'Tiene', acumulador[q], 'proyectos')
+            print('Año', fech[q], 'Tiene', acumulador[q], 'proyectos')
     return acumulador
 
 def opcion6(vec):
@@ -172,6 +171,6 @@ def determinar_mayor(vec):
         for j in range(len(vec)):
             if vec[j] == may:
                 print('Año:', fecha[j], 'con', vec[j], 'proyectos')
-                
+
 if __name__ == '__main__':
     principal()
