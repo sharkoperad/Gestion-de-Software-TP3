@@ -1,7 +1,7 @@
 from registro import *
 import math
 
-##Actualizado 4/9 12:50
+##Actualizado 4/9 20:00
 def mostrar_menu():
     menu = """ 
      ============================================================================= 
@@ -51,7 +51,6 @@ def display_one(vec):
                                                   vec.cantidad)
     return cad
 
-
 def principal():
     cont = [0] * 10
     op = -1
@@ -82,8 +81,8 @@ def principal():
             print(i4)
 
         elif op == 5:
-            i5 = opcion5(projectos)
-            print(i5)
+            print('\t OPCION 5 RESUMEN POR AÑO: ')
+            acumulador = opcion5(projectos)
 
         elif op == 6:
             item6 = opcion6(projectos)
@@ -97,6 +96,9 @@ def principal():
                 print(display_tabla())
                 for i in range(len(item6)):
                     print(display_one(item6[i]))
+        elif op == 7:
+            determinar_mayor(acumulador)
+
         elif op == 8:
             print('\t\t\t\t\t\t\t\t\tNos vemos pronto!')
 
@@ -125,12 +127,18 @@ def opcion4(vec):
 # considerando los años entre 2000 y 2022 incluidos ambos.
 # Mostrar los resultados solo de los años que tengan algún proyecto de software.
 def opcion5(vec):
-    print('\t\t\t\t\t\t\tLa Opcion que eligió es la Numero 5.')
-    a = [] * 22
-    for j in range(len(vec)):
-        a.append(vec[j].fecha)
-
-    print(a, len(a))
+    fech = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+    acumulador = 23 * [0]
+    n = len(vec)
+    for i in range(n):
+        for j in range(23):
+            if vec[i].fecha == fech[j]:
+                a = fech[j] % 1000
+                acumulador[a] += 1
+    for q in range(23):
+        if acumulador[q] != 0:
+            print('Año',fech[q], 'Tiene', acumulador[q], 'proyectos')
+    return acumulador
 
 def opcion6(vec):
     # creacion del vector secundario donde se agregaran los articulos nuevos.
@@ -153,7 +161,17 @@ def opcion6(vec):
 
 # 7) Productividad: A partir del resultado obtenido en el punto 5, determinar el año con mayor cantidad de proyectos actualizados,
 # considerando mostrar todos los años si fuera más de uno con dicha cantidad.
-
-
+def determinar_mayor(vec):
+    fecha = (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
+    may = 0
+    for i in range(len(vec)):
+        if vec[i] > may:
+            may = vec[i]
+    if may != 0:
+        print('Los años con mas proyectos')
+        for j in range(len(vec)):
+            if vec[j] == may:
+                print('Año:', fecha[j], 'con', vec[j], 'proyectos')
+                
 if __name__ == '__main__':
     principal()
