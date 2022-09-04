@@ -1,147 +1,142 @@
 from registro import *
 import math
 
-def mostrar_menu():        
-    menu= """
-    =============================================================================
-    \t\t\t\t\t\t\tMenu de Búsqueda
-    =============================================================================
-    1. Cargar proyectos
-    2. Listar proyectos
-    3. Actualizar proyecto
-    4. Resumen por lenguaje
-    5. Resumen por año
-    6. Filtrar lenguaje
-    7. Productividad
-    8. Salir del Programa
-    =============================================================================
+##Actualizado 4/9 12:50
+def mostrar_menu():
+    menu = """ 
+     ============================================================================= 
+    \t\t\t\t\t\t\t  Menu de Búsqueda 
+     ============================================================================= 
+                                1. Cargar proyectos 
+                                2. Listar proyectos 
+                                3. Actualizar proyecto 
+                                4. Resumen por lenguaje 
+                                5. Resumen por año 
+                                6. Filtrar lenguaje 
+                                7. Productividad 
+                                8. Salir del Programa 
+     ============================================================================= 
     """
     print(menu)
 
+
 def validar_entre(num, inf, sup):
     while num < inf or num > sup:
-        #############VICKY
-        print("Error, opcion no valida")
-        #############VICKY
-        num = int(input("Ingrese nuevamente: "))
+        print("\t\t\t\t\t\t\t\tError, opcion no valida")
+        print("\t\t\tRecuerde que la opcion elegida tiene que estar entre el ", inf, " y el ", sup, ".")
+        num = int(input("\t\t\t\t\t\t\t\t Ingrese nuevamente: "))
     return num
+
 
 def verificar(vec):
     if vec[0] is None:
         return -1
     return 0, vec
 
+
 def convert_lan(num):
     languages = ("Python", "Java", "C++", "Javascript", "Shell", "HTML", "Ruby", "Swift", "C#", "VB", "Go")
     return languages[num]
 
-#############VICKY, ACA NO HAGAS NADA
 
 def display_tabla():
-    cad = "{:<20}{:<20}{:<10}{:<10}{:^10}".format("Número de Proyecto", "Titulo", "Fecha", "Lenguaje", "Cantidad de Líneas de Código")
+    cad = "{:<20}{:<20}{:<10}{:<10}{:^10}".format("Número de Proyecto", "Titulo", "Fecha", "Lenguaje",
+                                                  "Cantidad de Líneas de Código")
     return cad
 
-#############VICKY TAMPOCO
 
 # Funcion: Se pasa como parametro el vector creado e imprime sus respectivos componentes en el orden asignado anteriormente en los titulos de la tabla a mostrar.
 def display_one(vec):
-    cad = "{:<20}{:<20}{:<10}{:<10}{:^10}".format(vec.numero_projecto, vec.titulo, vec.fecha, vec.lenguaje, vec.cantidad)
-    return cad, vec
+    cad = "{:<20}{:<20}{:<10}{:<10}{:^10}".format(vec.numero_projecto, vec.titulo, vec.fecha, vec.lenguaje,
+                                                  vec.cantidad)
+    return cad
+
 
 def principal():
-    tabla = [None]
-    projectos = crearArreglo()
-    if len(projectos) == 0:
-        print("\nNo hay projectos")
-        return
     cont = [0] * 10
     op = -1
     while op != 8:
         mostrar_menu()
-        op = int(input("Ingrese opcion elegida (1 al 8): "))
+        op = int(input("\t\t\t\t\t\t\tIngrese opcion elegida (1 al 8): "))
         print()
         op = validar_entre(op, 1, 8)
 
         if op == 1:
-            cargarArreglo_random(projectos)
-            print("Se han cargado los projectos.")
+            tabla = [None]
+            projectos = crearArreglo()
+            tabla.append(cargarArreglo_random(projectos))
+            print('\t\t\t\t\t\t\t   La Opcion que eligio es la 1.')
+            print("\t\t\t\t\t\t\t   Se han cargado los projectos de manera alteratoria.")
+            if len(projectos) == 0:
+                print("\n\t\t\t\t\t\t\t\t\t\tNo hay projectos")
+                return
         elif op == 2:
-            print("Lista de Projectos: \n")
+            print("\t\t\t\t\t\t\t\t\t Lista de Projectos: \n")
             print(display_tabla())
             for i in range(len(projectos)):
                 print(display_one(projectos[i]))
 
         elif op == 4:
-            i4 = opcion4(projectos, cont)
+            print('\t\t\t\t\t\t\t\tLa Opcion que eligio es la 4.')
+            i4 = opcion4(projectos)
             print(i4)
 
         elif op == 5:
             i5 = opcion5(projectos)
-            if i5 == -1:
-                print("No hay nada")
-            elif i5 is None:
-                print("000")
-            else:
-                print(display_tabla())
-                for i in range(len(i5)):
-                    print(display_one(i5[i]))
+            print(i5)
 
         elif op == 6:
             item6 = opcion6(projectos)
             if item6 == -1:
-                print("\nError...Arreglo no cargado")
+                print("\n\t\t\t\t\t\t\t\t\t\t\tError...Arreglo no cargado")
             elif item6 is None:
-                print("\nNo hay projectos con este lenguaje")
+                print("\n\t\t\t\t\t\t\tNo hay proyectos con este lenguaje")
             else:
-                print("Lenguajes: 1. Python, 2. Java, 3. C++, 4. Javascript, 5. Shell, 6. HTML, 7. Ruby, 8. Swift, 9. C#, 10. VB, 11. Go")
+                print(
+                    "Lenguajes: 1. Python, 2. Java, 3. C++, 4. Javascript, 5. Shell, 6. HTML, 7. Ruby, 8. Swift, 9. C#, 10. VB, 11. Go")
                 print(display_tabla())
                 for i in range(len(item6)):
                     print(display_one(item6[i]))
+        elif op == 8:
+            print('\t\t\t\t\t\t\t\t\tNos vemos pronto!')
 
 
-def opcion4(vec, cont):
+def opcion4(vec):
     can = []
-    print("\nLista valida de lenguajes: ")
+    print("\n\t\t\t\t\t\t\t\tLista valida de lenguajes: ")
     print(
-          "1 = Python      5 = Shell      9 = C#\n"
-          "2 = Java        6 = HTML       10 = VB\n"
-          "3 = C++         7 = Ruby       11 = Go\n"
-          "4 = Javascript  8 = Swift\n")
-    sel = int(input("\nIngresar el codigo del lenguaje de la cual desesa saber el total de lineas de código: "))
-    sel = validar_entre(sel, 0, 12)
+        "                           1 = Python           6 = HTML             \n"
+        "                           2 = Java             7 = Ruby             \n"
+        "                           3 = C++              8 = Swift            \n"
+        "                           4 = Javascript       9 = C#               \n"
+        "                           5 = Shell            10 = VB              \n"
+        "                                                11 = GO              \n")
+
+    sel = int(input("\n     Ingresar el codigo del lenguaje de la cual desesa saber el total de lineas de código: "))
+    sel = validar_entre(sel, 0, 11)
     for j in range(len(vec)):
         if sel == vec[j].lenguaje:
             can.append(vec[j].cantidad)
             a = sum(can)
-    print("La cantidad de lineas de código es de: ")
-    print(a)
+            sp = print("\t\t\t\t\t\tLa cantidad de lineas de código de " + str(convert_lan(sel)) + " es de: ", a)
+
 
 # 5) Resumen por año: Calcular la cantidad de proyectos por año de actualización,
 # considerando los años entre 2000 y 2022 incluidos ambos.
 # Mostrar los resultados solo de los años que tengan algún proyecto de software.
 def opcion5(vec):
-    fech = []
-    #############VICKY
+    print('\t\t\t\t\t\t\tLa Opcion que eligió es la Numero 5.')
+    a = [] * 22
+    for j in range(len(vec)):
+        a.append(vec[j].fecha)
 
-    x = int(input(' Ingrese año a buscar: '))
-    for i in range(len(vec)):
-        if x == vec[i].fecha:
-            fech.append(vec[i])
-    return fech
-    #vector = [0] * 23
-
-    # x = int(input(' buscar año: '))
-    # for i in range(len(vec)):
-    #    if x == vec[i].fecha:
-    #        vector.append(x)
-
-    #print(x)
+    print(a, len(a))
 
 def opcion6(vec):
     # creacion del vector secundario donde se agregaran los articulos nuevos.
     langi = []
-    a = int(input("¿Qué lenguaje necesita?: "))
-    #############VICKY
+    print('\t\t\t\t\t\t\tLa Opcion que eligio es la numero 6.')
+    a = int(input("'\t\t\t\t\t\t\t\t¿Qué lenguaje necesita?: "))
     for i in range(len(vec)):
         if a == vec[i].lenguaje:
             langi.append(vec[i])
@@ -162,5 +157,3 @@ def opcion6(vec):
 
 if __name__ == '__main__':
     principal()
-
-
