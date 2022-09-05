@@ -17,10 +17,10 @@ def validar_mayor_que(num, lim):
     return num
 
 
-def crearArreglo():
+def crearArreglo(tabla):
     n = int(input("Ingrese la cantidad de componentes del arreglo(mayor que 0): "))
     n = validar_mayor_que(n, 0)
-    vec = n * [None]
+    vec = n * tabla
     return vec
 
 # Funcion: Se le pasa como parametro la cantidad de componenetes ingresados y se
