@@ -1,7 +1,7 @@
 from registro import *
 import math
 
-##Actualizado 4/9 20:39
+##Actualizado 5/9 01:07
 def mostrar_menu():
     menu = """ 
      ============================================================================= 
@@ -52,6 +52,8 @@ def display_one(vec):
     return cad
 
 def principal():
+    acceso_punto_1 = False
+    tabla = [None]
     cont = [0] * 10
     op = -1
     while op != 8:
@@ -61,8 +63,8 @@ def principal():
         op = validar_entre(op, 1, 8)
 
         if op == 1:
-            tabla = [None]
-            projectos = crearArreglo()
+            acceso_punto_1 = True
+            projectos = crearArreglo(tabla)
             tabla.append(cargarArreglo_random(projectos))
             print('\t\t\t\t\t\t\t   La Opcion que eligio es la 1.')
             print("\t\t\t\t\t\t\t   Se han cargado los projectos de manera alteratoria.")
@@ -70,10 +72,13 @@ def principal():
                 print("\n\t\t\t\t\t\t\t\t\t\tNo hay projectos")
                 return
         elif op == 2:
-            print("\t\t\t\t\t\t\t\t\t Lista de Projectos: \n")
-            print(display_tabla())
-            for i in range(len(projectos)):
-                print(display_one(projectos[i]))
+            if acceso_punto_1:    
+                print("\t\t\t\t\t\t\t\t\t Lista de Projectos: \n")
+                print(display_tabla())
+                for i in range(len(projectos)):
+                    print(display_one(projectos[i]))
+            else:
+                print("\t\t\t\t\t\t\t Aun no se cargaron proyectos \n")
 
         elif op == 4:
             print('\t\t\t\t\t\t\t\tLa Opcion que eligio es la 4.')
